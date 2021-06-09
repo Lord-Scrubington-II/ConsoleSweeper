@@ -42,7 +42,10 @@ SCENE_TRANSITION_DELAY = 2
 MS_BOARD_SIZE_ROWS = APP_GLOBAL_SETTINGS_JSON['grid_rows']
 MS_BOARD_SIZE_COLS = APP_GLOBAL_SETTINGS_JSON['grid_cols']
 MS_USING_COLOURS = APP_GLOBAL_SETTINGS_JSON['colours']
-MS_BOARD_DIFFICULTY = ConsoleSweeperBones.CSDifficulty[APP_GLOBAL_SETTINGS_JSON['difficulty']].value
+try:
+	MS_BOARD_DIFFICULTY = ConsoleSweeperBones.CSDifficulty[APP_GLOBAL_SETTINGS_JSON['difficulty'].upper()].value;
+except:
+	MS_BOARD_DIFFICULTY = "NORMAL";
 
 def main(stdscr) -> int:
 	CursesUtils.init_curses_protocols(stdscr);

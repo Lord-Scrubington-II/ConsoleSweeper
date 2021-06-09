@@ -178,6 +178,7 @@ class CSBoard():
 		if this_tile.is_mine():
 			return False;
 		else:
+			this_tile.plant_flag(False);
 			deadlyneighbors = self.grid[row_int][col_int].num_mines_around;
 			if(deadlyneighbors == 0):
 				for x in [-1, 0, 1]:
