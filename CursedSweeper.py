@@ -36,7 +36,7 @@ except:
 		"time_limit": 100 
 	}
 
-SCENE_TRANSITION_DELAY = 3 
+SCENE_TRANSITION_DELAY = 2 
 
 # information about the minesweeper board
 MS_BOARD_SIZE_ROWS = APP_GLOBAL_SETTINGS_JSON['grid_rows']
@@ -55,7 +55,6 @@ def main(stdscr) -> int:
 		choice = handle_main_menu(stdscr);
 		# resolve app state by use choice, 
 		# then reroute the user to a different screen depending on app state
-		# why, oh why does python not support explicit enum-integer casting?
 		if (choice == MAIN_MENU_CHOICES.LEAVE):
 			GAME_EXIT_SIGNAL = True;
 		elif (choice == MAIN_MENU_CHOICES.PLAY):
@@ -129,12 +128,12 @@ def handle_main_menu(stdscr) -> int:
 
 			for ind, text in enumerate(menu_elems):
 				menu_x = (width // 2) - (len(text) // 2);
-				menu_y = (height // 4) - (len(menu_elems) // 2);
+				menu_y = (height // 2) - (len(menu_elems) // 2);
 				menu_y_true = menu_y + ind;
 				
 				if y == menu_y_true and x in range(menu_x, menu_x + len(text)):
 					menu_row_ind = ind;
-					refresh;
+					stdscr.refresh();
 					return MAIN_MENU_CHOICES(menu_row_ind);
 
 
@@ -179,7 +178,7 @@ def print_main_menu(stdscr, selected_row_ind: int):
 def handle_settings_menu(stdscr):
 	return 0;
 
-return_button    = "<< Return to Menu"
+return_button    = "<< Return to Menu "
 return_button_row_col = (2, 5);
 line_delim_pad_2 = "--------------------------------"
 game_top_text    =         "MEMESWEEPER TIME"
@@ -261,6 +260,10 @@ def minesweeper_main(stdscr):
 			else:
 				if (y == return_button_row_col[0] and x in range(return_button_row_col[1], return_button_row_col[1] + len(return_button))):
 					return;
+		elif key == CursesUtils.ESC_KEY:
+			# for some reason ESC key events have an implicit delay associated with them.
+			# I seriously have no idea why.
+				return;
 
 	# there's probably a much cleaner, less bad way to prevent the mouseUp event
 	# from un-halting the program, but I don't have time to figure it out.
@@ -341,10 +344,7 @@ def print_ms_grid_true(stdscr, board: ConsoleSweeperBones.CSBoard, loss: bool, m
 	to_display = game_won_top_logo if not loss else game_over_top_logo;
 	
 	#display logo
-	for ind, text in enumerate(to_display):
-		x = (width // 2) - (len(text) // 2);
-		y = (height // 6) - (len(menu_elems) // 2) + ind;
-		stdscr.addstr(y, x, text)
+	display_logo(stdscr, to_display);
 
 	for col_ind in range(0, num_cols * 3, 3):
 		stdscr.addstr(grid_start_y - 1, grid_start_x + col_ind + 1, str(col_ind // 3 + 1) + "  ");
@@ -381,7 +381,7 @@ def display_logo(stdscr, to_display):
 		stdscr.addstr(y, x, text)
 	stdscr.refresh()
 
-# this is some lame shit right here, but it's good enough.
+# this is some lame shit right here, but it works, I guess.
 def get_colour_by_symbol(symbol):
 	if(symbol not in ['(', ')']):
 		if (symbol == "0"):

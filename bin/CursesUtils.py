@@ -17,6 +17,7 @@ TEXT_YELLOW = 7;
 BUTTON_RED = 8; # white-red highlight
 BUTTON_BLACK_RED = 9; # black-red highlight
 
+ESC_KEY = 27;
 
 def init_curses_protocols(stdscr):
 	curses.curs_set(False);
