@@ -1,3 +1,11 @@
+'''
+This file and its dependencies defines the logic that controls the front end for a version of MineSweeper that runs in the terminal.
+The Curses library was used to handle formatted console output, mouse events, and key events to simulate a GUI.
+Author: Zane Wang
+
+Settings for the game can be changed in the settings.json file.
+'''
+
 import curses
 from curses import textpad
 
@@ -43,6 +51,7 @@ MS_BOARD_SIZE_ROWS = APP_GLOBAL_SETTINGS_JSON['grid_rows']
 MS_BOARD_SIZE_COLS = APP_GLOBAL_SETTINGS_JSON['grid_cols']
 MS_USING_COLOURS = APP_GLOBAL_SETTINGS_JSON['colours']
 try:
+	APP_GLOBAL_SETTINGS_JSON['difficulty'] = APP_GLOBAL_SETTINGS_JSON['difficulty'].upper()
 	MS_BOARD_DIFFICULTY = ConsoleSweeperBones.CSDifficulty[APP_GLOBAL_SETTINGS_JSON['difficulty'].upper()].value;
 except:
 	MS_BOARD_DIFFICULTY = "NORMAL";
@@ -138,9 +147,6 @@ def handle_main_menu(stdscr) -> int:
 					menu_row_ind = ind;
 					stdscr.refresh();
 					return MAIN_MENU_CHOICES(menu_row_ind);
-
-
-
 		print_main_menu(stdscr, menu_row_ind);
 	
 	return MAIN_MENU_CHOICES(menu_row_ind);
@@ -316,7 +322,7 @@ def print_ms_grid(stdscr, board: ConsoleSweeperBones.CSBoard, height: int, width
 		#colours support
 		if(MS_USING_COLOURS):
 			for offset, symbol in enumerate(row_str):
-				colour_to_use = get_colour_by_symbol(symbol)		
+				colour_to_use = get_colour_by_symbol(symbol)
 				CursesUtils.write_text_with_colour(stdscr, grid_start_y_true, grid_start_x + offset, symbol, colour_to_use);
 		else:
 			stdscr.addstr(grid_start_y_true, grid_start_x, row_str);

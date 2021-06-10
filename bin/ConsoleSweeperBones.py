@@ -1,3 +1,7 @@
+'''
+This file defines the objects and internal logic for the Minesweeper game.
+'''
+
 import time
 import string
 from random import *

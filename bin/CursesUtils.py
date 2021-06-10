@@ -1,3 +1,8 @@
+'''
+This file contains numeric bindings that refer to the colour settings of this application,
+as well as a few other useful utilities.
+'''
+
 import curses;
 
 # this is a terrible way of implementing C#-style enumerations,
