@@ -1,5 +1,5 @@
 # ConsoleSweeper
-An app written in Python that plays a version of Minesweeper that runs in the terminal. Uses the `curses` library to simulate a GUI via character-cell manipulation.
+An app written in Python that plays a version of Minesweeper which runs directly in the terminal. Uses the `curses` library to simulate a GUI via character-cell manipulation.
 
 ## Images
 Main Menu:  
