@@ -1,5 +1,5 @@
 '''
-This file and its dependencies defines the logic that controls the front end for a version of MineSweeper that runs in the terminal.
+This file and its dependencies define the logic that controls the front end for a version of MineSweeper that runs in the terminal.
 The Curses library was used to handle formatted console output, mouse events, and key events to simulate a GUI.
 Author: Zane Wang
 
@@ -50,11 +50,12 @@ SCENE_TRANSITION_DELAY = 2
 MS_BOARD_SIZE_ROWS = APP_GLOBAL_SETTINGS_JSON['grid_rows']
 MS_BOARD_SIZE_COLS = APP_GLOBAL_SETTINGS_JSON['grid_cols']
 MS_USING_COLOURS = APP_GLOBAL_SETTINGS_JSON['colours']
+MS_BOARD_DIFFICULTY = "";
 try:
 	APP_GLOBAL_SETTINGS_JSON['difficulty'] = APP_GLOBAL_SETTINGS_JSON['difficulty'].upper()
 	MS_BOARD_DIFFICULTY = ConsoleSweeperBones.CSDifficulty[APP_GLOBAL_SETTINGS_JSON['difficulty'].upper()].value;
 except:
-	MS_BOARD_DIFFICULTY = "NORMAL";
+	MS_BOARD_DIFFICULTY = ConsoleSweeperBones.CSDifficulty["NORMAL"].value;
 
 def main(stdscr) -> int:
 	CursesUtils.init_curses_protocols(stdscr);
@@ -272,7 +273,7 @@ def minesweeper_main(stdscr):
 		elif key == CursesUtils.ESC_KEY:
 			# for some reason ESC key events have an implicit delay associated with them.
 			# I seriously have no idea why.
-				return;
+			return;
 
 	# there's probably a much cleaner, less bad way to prevent the mouseUp event
 	# from un-halting the program, but I don't have time to figure it out.
