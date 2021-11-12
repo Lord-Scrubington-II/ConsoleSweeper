@@ -191,7 +191,8 @@ def handle_settings_menu(stdscr):
 return_button    = "<< Return to Menu "
 return_button_row_col = (2, 5);
 line_delim_pad_2 = "--------------------------------"
-game_top_text    =         "MEMESWEEPER TIME"
+game_top_text    =         "MINESWEEPER TIME"
+tame_top_text_funny =      "MEMESWEEPER TIME"
 game_top_text_win        = "YOU WIN!"
 game_top_text_game_over  = "YOU LOSE."
 funny_emoticon_game      = "(>*-*)>"

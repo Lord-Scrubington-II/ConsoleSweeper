@@ -367,7 +367,7 @@ class ConsoleSweeper(Game):
 				break;
 
 			
-
+			
 			if (self.board.check_win_cond()):
 				print("Congratulation  Y O U  W I N\n");
 				print("Did it in " + str(self.board.clicks_so_far) + " clicks. Pretty Spicy.");
@@ -384,7 +384,8 @@ class ConsoleSweeper(Game):
 
 	def get_dimension(self):
 		valid = False;
-
+		
+		# make the engine sound as unreasonable as possible
 		while(not valid):
 			dim_str = input("Give me a board size between 10 and 50: ")
 			try:
